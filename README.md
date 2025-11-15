@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+-----
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Simple Clicker Application
 
-## Available Scripts
+This is a basic front-end web application built using **React** to implement a simple **Click Counter**. The application allows users to increment, decrement, and reset a numerical count displayed on the screen.
 
-In the project directory, you can run:
+### Core Technologies
 
-### `npm start`
+  * **Front-end:** **React** (utilizing **React Fiber** for rendering).
+  * **Runtime Environment (Assumed):** **Node.js** (required for running the development server, installing dependencies like React, and building the final application bundle).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ⚛️ React Implementation Details
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application consists of a single functional component, `App`, which manages the counter's state and rendering logic.
 
-### `npm test`
+#### State Management (Hooks)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  * The core functionality relies on the **`useState` Hook** from React to manage the counter's current value.
+  * The state variable is `count`, initialized to $0$.
+    ```javascript
+    const [count, setCount] = useState(0);
+    ```
 
-### `npm run build`
+#### Functions and Logic
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  * **`add`:** Increments the `count` by $1$.
+  * **`minus`:** Decrements the `count` by $1$.
+  * **`reset`:** Resets the `count` back to $0$.
+  * **Negative Number Guard:** An **`if` statement** implements a basic validation rule. If the `count` drops below $0$, an alert is shown, and the count is immediately reset to $0$, preventing negative values.
+    ```javascript
+    if (count < 0) {
+      alert("Negative numbers aren't supported");
+      reset();
+    }
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### User Interface
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  * The UI displays the current `Count` value.
+  * It provides three interactive **buttons**, each tied to a corresponding state update function via the **`onClick` event handler**:
+      * **"Add"** (calls `add`)
+      * **"Minus"** (calls `minus`)
+      * **"Reset"** (calls `reset`)
 
-### `npm run eject`
+### Role of React Fiber
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The application benefits from **React Fiber**, which is the **reconciliation engine** powering React $16$ and later.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  * **Asynchronous Rendering:** Fiber allows the rendering process (updating the DOM when state changes, e.g., when the user clicks a button) to be broken down into smaller, interruptible chunks.
+  * **Improved Responsiveness:** This architecture prevents large updates from blocking the main thread, ensuring a smoother and more responsive user experience, even for more complex applications than this simple clicker. Every time `setCount` is called, the Fiber process schedules and executes the re-render efficiently.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Role of Node.js
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Although the clicker's logic runs in the browser, **Node.js** plays a critical background role:
 
-## Learn More
+  * **Package Management:** Used to run **npm** or **Yarn** for installing React and other development dependencies.
+  * **Development Environment:** Typically used to run a local development server (like `webpack-dev-server` or the one built into Create React App) that bundles and serves the application.
+  * **Build Process:** Node.js executes the build scripts that transpile the JSX and modern JavaScript into code compatible with browsers.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-----
